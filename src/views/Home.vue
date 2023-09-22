@@ -11,7 +11,7 @@
 
   </div>
   <div class="todolist-container" v-if="projects.length ===0 || projects.length">
-    <AddTask/>
+    <AddTask :tasks="projects"/>
   </div>
   <div class="min-h-screen flex items-center justify-center" v-else>
     <div class="text-center">

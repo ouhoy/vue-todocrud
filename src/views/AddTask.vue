@@ -6,15 +6,15 @@
 
       <input type="search" id="default-search"
              class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-             placeholder="Feed the gorilla..."  v-model="newTask">
+             placeholder="Feed the gorilla..." v-model="newTask">
 
       <button type="submit"
               class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Add
       </button>
     </div>
-          <p v-if="errorMessage" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-bold">Oops!</span>
-        {{ errorMessage }}</p>
+    <p v-if="errorMessage" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-bold">Oops!</span>
+      {{ errorMessage }}</p>
   </form>
 
 
@@ -25,6 +25,8 @@ import {defineComponent} from 'vue'
 
 export default defineComponent({
   name: "AddTask",
+  props: {tasks: Array}
+  ,
   data() {
     return {
       newTask: "",
@@ -34,7 +36,28 @@ export default defineComponent({
   methods: {
     handleSubmit() {
 
-      this.errorMessage = this.newTask === ""? "You need to describe the task first ^^": ""
+
+      if (this.newTask === "") {
+        this.errorMessage = "You need to describe the task first ^^";
+        return
+      }
+
+      const createdTask = {title: this.newTask, complete: false, details: ""};
+
+      fetch("http://localhost:3000/projects", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(createdTask)
+      }).then(() => {
+
+        this.tasks?.push(createdTask)
+        this.newTask = "";
+      }).catch(error => {
+        this.errorMessage = "Something went wrong. Please refresh the page and try again.";
+
+        console.error(error)
+      })
+
 
     }
   }

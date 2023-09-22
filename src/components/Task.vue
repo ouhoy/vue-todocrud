@@ -27,6 +27,7 @@ interface Task {
 export default defineComponent({
   name: "Task",
   components: {Options},
+
   props: {task: Object as () => Task},
   data() {
     return {
