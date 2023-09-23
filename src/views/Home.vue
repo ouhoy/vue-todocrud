@@ -4,7 +4,7 @@
 
     <ul class="mt-16 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
 
-      <Task v-for="project in projects" :task="project" @delete="handleDelete"  @edit="handleEdit"/>
+      <Task v-for="project in projects" :task="project" @delete="handleDelete" @edit="handleEdit"/>
 
 
     </ul>
@@ -29,7 +29,7 @@
   </div>
 
   <div class="todolist-container">
-    <AddTask :tasks="projects" :editedTask="editedTask"/>
+    <AddTask @refresh="handleRefresh" :editedTask="editedTask"/>
   </div>
 </template>
 
@@ -65,14 +65,22 @@ export default defineComponent({
     },
     handleEdit(id: number) {
       this.editedTask = this.projects.filter(project => project.id === id)[0]
-      }
+    }
+    ,
+    handleRefresh() {
+      this.fetchData()
+    },
+
+    fetchData() {
+      fetch(' http://localhost:3000/projects')
+          .then(data => data.json())
+          .then(res => this.projects = res)
+          .catch(error => console.error("Error fetching data: ", error))
+    }
   }
   ,
   mounted() {
-    fetch(' http://localhost:3000/projects')
-        .then(data => data.json())
-        .then(res => this.projects = res)
-        .catch(error => console.error("Error fetching data: ", error))
+    this.fetchData()
   }
 })
 </script>

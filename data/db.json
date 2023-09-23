@@ -1,13 +1,13 @@
 {
   "projects": [
     {
-      "title": "Finish VueJs Course 📗",
+      "title": "Finish VueJs Course 📗:)",
       "complete": true,
       "details": "",
       "id": 1
     },
     {
-      "title": "Learn Laravel ",
+      "title": "Learn more about Laravel 🍒",
       "complete": true,
       "details": "",
       "id": 2
@@ -19,7 +19,7 @@
       "id": 3
     },
     {
-      "title": "Do more coding challenges",
+      "title": "OK",
       "complete": false,
       "details": "",
       "id": 4

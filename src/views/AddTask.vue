@@ -26,7 +26,7 @@ import {defineComponent} from 'vue'
 
 export default defineComponent({
   name: "AddTask",
-  props: {tasks: Array, editedTask: Object}
+  props: { editedTask: Object}
   ,
   data() {
     return {
@@ -55,7 +55,7 @@ export default defineComponent({
           body: JSON.stringify(createdTask)
         }).then(() => {
 
-          this.tasks?.push(createdTask)
+          this.$emit("refresh")
           this.newTask = "";
         }).catch(error => {
           this.errorMessage = "Something went wrong. Please refresh the page and try again.";
@@ -74,8 +74,12 @@ export default defineComponent({
             .finally(() => {
               this.newTask = "";
               this.method = "Add";
-              this.button = "Add"
+              this.button = "Add";
+              this.$emit("refresh")
+              this.$emit("task-update")
             })
+
+
       }
 
 
