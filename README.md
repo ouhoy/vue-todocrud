@@ -1,19 +1,7 @@
 # todolist
 
-## Project setup
-```
-npm install
-```
+## Project Overview 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+![Screenshot 2023-09-23 023732](https://github.com/ouhoy/vue-todocrud/assets/75227707/99630d41-aeb6-4392-af1a-68f635af6fe5)
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
