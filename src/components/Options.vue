@@ -1,6 +1,7 @@
 <template>
   <div class="options-container">
-    <span @click="handleClick" :class="{'show-options-icon':showOptions} " class="options-icon  text-gray-500">...</span>
+    <span @click="handleClick" :class="{'show-options-icon':showOptions} "
+          class="options-icon  text-gray-500">...</span>
     <div v-if="showOptions" id="dropdown"
 
          class="z-10  bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
@@ -46,7 +47,7 @@
 }
 
 .show-options-icon {
-    opacity: 1 !important;
+  opacity: 1 !important;
 
 }
 
@@ -63,6 +64,7 @@ import {defineComponent} from 'vue'
 
 export default defineComponent({
   name: "Options",
+  props: {isSelected: Boolean},
   data() {
     return {
       showOptions: false,
@@ -72,6 +74,9 @@ export default defineComponent({
     handleClick() {
       this.$root.$emit('close-all-options');
       this.showOptions = !this.showOptions
+      if (!this.showOptions) {
+        this.$emit("cancel")
+      }
     },
 
     handleDelete() {
@@ -79,6 +84,8 @@ export default defineComponent({
     },
 
     handleEdit() {
+      this.showOptions = !this.showOptions
+
       this.$emit("edit")
     }
   }

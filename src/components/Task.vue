@@ -1,5 +1,6 @@
 <template>
   <li :key="task?.id"
+      :class="{'bg-gray-50': isSelected}"
       class=" task w-full flex items-center justify-between  border-b border-gray-200 rounded-t-lg dark:border-gray-600">
     <div class="  flex items-center pl-3">
       <input @click="handleCheck" :id="task?.id" type="checkbox" :checked="task?.complete"
@@ -9,7 +10,7 @@
           task.title
         }}</label>
     </div>
-    <Options @delete="handleDelete" @edit="handleEdit" :key="task?.id"/>
+    <Options @delete="handleDelete" @cancel="handleCancel" :isSelected="isSelected" @edit="handleEdit" :key="task?.id"/>
   </li>
 </template>
 
@@ -31,7 +32,8 @@ export default defineComponent({
   props: {task: Object as () => Task},
   data() {
     return {
-      uri: "http://localhost:3000/projects/" + this.task?.id
+      uri: "http://localhost:3000/projects/" + this.task?.id,
+      isSelected: false,
     }
   }
   ,
@@ -49,8 +51,16 @@ export default defineComponent({
       })
           .catch(error => console.error("There is an error: ", error))
     },
+    handleCancel() {
+      this.isSelected = false
+
+      this.$emit("cancel")
+    }
+    ,
 
     handleEdit() {
+      this.isSelected = true;
+      this.$emit("edit", this.task?.id)
     },
 
   }

@@ -1,22 +1,28 @@
 {
   "projects": [
     {
-      "id": 1,
-      "title": "Create new homepage banner",
-      "details": "Lorem ipsum",
-      "complete": true
+      "title": "Finish VueJs Course 📗",
+      "complete": true,
+      "details": "",
+      "id": 1
     },
     {
-      "id": 2,
-      "title": "Make marketing email",
-      "details": "Lorem ipsum",
-      "complete": true
+      "title": "Learn Laravel ",
+      "complete": true,
+      "details": "",
+      "id": 2
     },
     {
-      "title": "OK",
-      "complete": false,
+      "title": "Use VueJS and Laravel ❤️‍🔥 ",
+      "complete": true,
       "details": "",
       "id": 3
+    },
+    {
+      "title": "Do more coding challenges",
+      "complete": false,
+      "details": "",
+      "id": 4
     }
   ]
 }

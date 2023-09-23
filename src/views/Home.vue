@@ -4,15 +4,13 @@
 
     <ul class="mt-16 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
 
-      <Task v-for="project in projects" :task="project" @delete="handleDelete"/>
+      <Task v-for="project in projects" :task="project" @delete="handleDelete"  @edit="handleEdit"/>
 
 
     </ul>
 
   </div>
-  <div class="todolist-container" v-if="projects.length ===0 || projects.length">
-    <AddTask :tasks="projects"/>
-  </div>
+
   <div class="min-h-screen flex items-center justify-center" v-else>
     <div class="text-center">
       <div role="status">
@@ -30,6 +28,9 @@
     </div>
   </div>
 
+  <div class="todolist-container">
+    <AddTask :tasks="projects" :editedTask="editedTask"/>
+  </div>
 </template>
 
 <script lang="ts">
@@ -42,22 +43,29 @@ interface Project {
   title: string,
   details: string
   complete: boolean,
+
 }
 
 export default defineComponent({
   name: "home",
   components: {AddTask, Task},
+
   data() {
     return {
-      projects: [] as Project[]
+      projects: [] as Project[],
+      editedTask: {} as Project,
     }
   },
   methods: {
     handleDelete(id: number) {
       this.projects = this.projects.filter(project => {
-        return project.id !== id
+        return project.id !== id;
+
       })
-    }
+    },
+    handleEdit(id: number) {
+      this.editedTask = this.projects.filter(project => project.id === id)[0]
+      }
   }
   ,
   mounted() {
